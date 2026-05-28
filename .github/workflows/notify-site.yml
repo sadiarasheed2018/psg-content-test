@@ -1,0 +1,17 @@
+name: Notify site to rebuild
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send event to site repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.SITE_REPO_TOKEN }}
+          repository: sadiarasheed2018/psg-site-test
+          event-type: content-updated
+          client-payload: '{"message": "Content was updated!"}'
